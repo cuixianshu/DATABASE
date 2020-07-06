@@ -1,15 +1,6 @@
 <?php
   date_default_timezone_set('Asia/Shanghai');
-	$servername = "localhost";
-	$username = "root";
-	$password = "Mwy197301242811";
-	$dbname = "cuixianshu"; // 要操作的数据库名
-    $outputData=array();
-	// 创建连接 
-	$conn= new mysqli($servername,$username,$password,$dbname); // 注意第四个参数
-	if($conn->connect_error){
-	    die("连接失败,错误:" . $conn->connect_error);
-	}
+  include_once 'linkToCXS.php';
     
   if($_POST['conditions']==="DataByHandInput") {
     //获取单位简称
@@ -20,6 +11,7 @@
     $id_product=$_POST['id_product'];
     $id_payer=$_POST['id_payer'];
     $id_operater=$_POST['id_operator'];
+    $id_creater=$_POST['id_creater'];
 
     $sql="insert into tbl_orders (id,cstmr_ognz,id_contacter,id_prjct_belongto,id_contract,id_product,id_rule_price,quantity,actual_price,surcharge,use_surcharge,start_time,end_time,start_point,end_point,id_operater,id_equipment,id_payer,mem,time_create,id_creater,time_verify,id_verifyer, id_request_invoice,id_fill_invoice,id_cashier,mileage,msg_for_driver,park_fee) values (null,?,?,?,?,?,null,?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIME(),?,CURRENT_TIME(),1,null,null,null,null,null,null)";
     $stmt=$conn->prepare($sql);
@@ -34,7 +26,6 @@
     $start_point=$_POST['startPoint'];
     $end_point=$_POST['endPoint'];
     $mem=$_POST['mem'];
-    $id_creater=1;
     
     $result=$stmt->execute();
     if($result) {

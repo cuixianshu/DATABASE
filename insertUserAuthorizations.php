@@ -1,16 +1,5 @@
 <?php
-  $servername = "localhost";
-  $username = "root";
-  $password = "Mwy197301242811";
-  $dbname = "cuixianshu"; // 要操作的数据库名
-  $outputData=array();
-  // 创建连接 
-  $conn= new mysqli($servername,$username,$password,$dbname); // 注意第四个参数
-  if($conn->connect_error){
-      die("连接失败，错误:" . $conn->connect_error);
-  }
-  // echo json_encode($_POST);
-  // exit;
+  include_once 'linkToCXS.php';
 
   $bscinfo=$_POST['bscinfo'];
   $bscinfo_authorization=$_POST['bscinfo_authorization'];
@@ -35,7 +24,9 @@
   $invoices_modify_fill=$_POST['invoices_modify_fill'];
   $invoices_refill_cancel=$_POST['invoices_refill_cancel'];
   $materials=$_POST['materials'];
+  $materials_apply=$_POST['materials_apply'];
   $materials_Inventory=$_POST['materials_Inventory'];
+  $materials_approve_applying=$_POST['materials_approve_applying'];
   $materials_acceptance=$_POST['materials_acceptance'];
   $materials_distribute=$_POST['materials_distribute'];
   $materials_search=$_POST['materials_search'];
@@ -69,11 +60,78 @@
   $rqstfunds_primary_audits=$_POST['rqstfunds_primary_audits'];
   $rqstfunds_purchasing_funds=$_POST['rqstfunds_purchasing_funds'];
   $rqstfunds_rfdtkt_paying=$_POST['rqstfunds_rfdtkt_paying'];
+// echo json_encode($_POST);
+// exit;
+/*
 
-  $sql_insert="INSERT INTO `tbl_user_authorization` (`bscinfo`,`bscinfo_authorization`,`bscinfo_clnt_dptmt`,`bscinfo_contract`,`bscinfo_employee`,`bscinfo_equipment`,`bscinfo_product`,`bscinfo_project`,`bscinfo_rule_price`,`finance`,`finance_accept_other_funds`,`finance_cashier`,`finance_check_receipts`,`finance_pay`,`finance_review_payment`,`finance_tkt_cashier`,`id_user`,`invoices`,`invoices_apply`,`invoices_details`,`invoices_modify_fill`,`invoices_refill_cancel`,`materials`,`materials_Inventory`,`materials_acceptance`,`materials_distribute`,`materials_search`,`orders`,`orders_check_orders`,`orders_import_from_excel`,`orders_input_byhand`,`orders_tkt_change_refound`,`orders_tkt_inbound`,`orders_tkt_outbound`,`personal`,`personal_apply`,`personal_audits`,`personal_logout`,`personal_modify_info`,`personal_turn_in`,`purchasing`,`purchasing_apply`,`purchasing_approve_applying`,`purchasing_approve_enquiry`,`purchasing_enquiry_compare`,`purchasing_launch`,`reports`,`reports_finance`,`reports_other`,`reports_purchasing`,`reports_sale`,`rqstfunds`,`rqstfunds_borrow_reimburse`,`rqstfunds_final_audits`,`rqstfunds_primary_audits`,`rqstfunds_purchasing_funds`,`rqstfunds_rfdtkt_paying`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+id_user
+bscinfo_authorization
+bscinfo_clnt_dptmt
+bscinfo_contract
+bscinfo_employee
+bscinfo_equipment
+bscinfo_product
+bscinfo_project
+bscinfo_rule_price
+finance_accept_other_funds
+finance_cashier
+finance_check_receipts
+finance_pay
+finance_review_payment
+finance_tkt_cashier
+home
+invoices_apply
+invoices_details
+invoices_modify_fill
+invoices_refill_cancel
+login
+materials_acceptance
+materials_apply
+materials_approve_applying
+materials_distribute
+materials_Inventory
+materials_search
+none
+orders_check_orders
+orders_import_from_excel
+orders_input_byhand
+orders_tkt_change_refound
+orders_tkt_inbound
+orders_tkt_outbound
+personal_modify_info
+personal_turn_in
+purchasing_apply
+purchasing_approve_applying
+purchasing_approve_enquiry
+purchasing_enquiry_compare
+purchasing_launch
+reports_finance
+reports_other
+reports_purchasing
+reports_sale
+rqstfunds_borrow_reimburse
+rqstfunds_final_audits
+rqstfunds_primary_audits
+rqstfunds_purchasing_funds
+rqstfunds_rfdtkt_paying
+selecter-of-filled-invoice
+bscinfo
+finance
+invoices
+materials
+orders
+personal
+purchasing
+reports
+rqstfunds
+ */
+
+  $sql_insert="INSERT INTO `tbl_user_authorization` (`bscinfo`,`bscinfo_authorization`,`bscinfo_clnt_dptmt`,`bscinfo_contract`,`bscinfo_employee`,`bscinfo_equipment`,`bscinfo_product`,`bscinfo_project`,`bscinfo_rule_price`,`finance`,`finance_accept_other_funds`,`finance_cashier`,`finance_check_receipts`,`finance_pay`,`finance_review_payment`,`finance_tkt_cashier`,`id_user`,`invoices`,`invoices_apply`,`invoices_details`,`invoices_modify_fill`,`invoices_refill_cancel`,`materials`,`materials_apply`,`materials_approve_applying`,`materials_Inventory`,`materials_acceptance`,`materials_distribute`,`materials_search`,`orders`,`orders_check_orders`,`orders_import_from_excel`,`orders_input_byhand`,`orders_tkt_change_refound`,`orders_tkt_inbound`,`orders_tkt_outbound`,`personal`,`personal_apply`,`personal_audits`,`personal_logout`,`personal_modify_info`,`personal_turn_in`,`purchasing`,`purchasing_apply`,`purchasing_approve_applying`,`purchasing_approve_enquiry`,`purchasing_enquiry_compare`,`purchasing_launch`,`reports`,`reports_finance`,`reports_other`,`reports_purchasing`,`reports_sale`,`rqstfunds`,`rqstfunds_borrow_reimburse`,`rqstfunds_final_audits`,`rqstfunds_primary_audits`,`rqstfunds_purchasing_funds`,`rqstfunds_rfdtkt_paying`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  // $sql_insert="INSERT INTO `tbl_user_authorization` (`id_user`) VALUES (?)";  
   $stmt=$conn->prepare($sql_insert);
 
-  $stmt->bind_param('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',$bscinfo,$bscinfo_authorization,$bscinfo_clnt_dptmt,$bscinfo_contract,$bscinfo_employee,$bscinfo_equipment,$bscinfo_product,$bscinfo_project,$bscinfo_rule_price,$finance,$finance_accept_other_funds,$finance_cashier,$finance_check_receipts,$finance_pay,$finance_review_payment,$finance_tkt_cashier,$id_user,$invoices,$invoices_apply,$invoices_details,$invoices_modify_fill,$invoices_refill_cancel,$materials,$materials_Inventory,$materials_acceptance,$materials_distribute,$materials_search,$orders,$orders_check_orders,$orders_import_from_excel,$orders_input_byhand,$orders_tkt_change_refound,$orders_tkt_inbound,$orders_tkt_outbound,$personal,$personal_apply,$personal_audits,$personal_logout,$personal_modify_info,$personal_turn_in,$purchasing,$purchasing_apply,$purchasing_approve_applying,$purchasing_approve_enquiry,$purchasing_enquiry_compare,$purchasing_launch,$reports,$reports_finance,$reports_other,$reports_purchasing,$reports_sale,$rqstfunds,$rqstfunds_borrow_reimburse,$rqstfunds_final_audits,$rqstfunds_primary_audits,$rqstfunds_purchasing_funds,$rqstfunds_rfdtkt_paying);
+  $stmt->bind_param('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',$bscinfo,$bscinfo_authorization,$bscinfo_clnt_dptmt,$bscinfo_contract,$bscinfo_employee,$bscinfo_equipment,$bscinfo_product,$bscinfo_project,$bscinfo_rule_price,$finance,$finance_accept_other_funds,$finance_cashier,$finance_check_receipts,$finance_pay,$finance_review_payment,$finance_tkt_cashier,$id_user,$invoices,$invoices_apply,$invoices_details,$invoices_modify_fill,$invoices_refill_cancel,$materials,$materials_apply,$materials_approve_applying,$materials_Inventory,$materials_acceptance,$materials_distribute,$materials_search,$orders,$orders_check_orders,$orders_import_from_excel,$orders_input_byhand,$orders_tkt_change_refound,$orders_tkt_inbound,$orders_tkt_outbound,$personal,$personal_apply,$personal_audits,$personal_logout,$personal_modify_info,$personal_turn_in,$purchasing,$purchasing_apply,$purchasing_approve_applying,$purchasing_approve_enquiry,$purchasing_enquiry_compare,$purchasing_launch,$reports,$reports_finance,$reports_other,$reports_purchasing,$reports_sale,$rqstfunds,$rqstfunds_borrow_reimburse,$rqstfunds_final_audits,$rqstfunds_primary_audits,$rqstfunds_purchasing_funds,$rqstfunds_rfdtkt_paying);
+  // $stmt->bind_param('i',$id_user);  
   $result_insert=$stmt->execute();
   $stmt->free_result();
   $stmt->close();     

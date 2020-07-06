@@ -1,14 +1,6 @@
 <?php  
-	$servername = "localhost";
-	$username = "root";
-	$password = "Mwy197301242811";
-	$dbname = "cuixianshu"; // 要操作的数据库名
-    $respondedData=[];
-	// 创建连接 
-	$conn= new mysqli($servername,$username,$password,$dbname); // 注意第四个参数
-	if($conn->connect_error){
-	    die("连接失败，错误:" . $conn->connect_error);
-	}
+  include_once 'linkToCXS.php';
+  $respondedData=[];
   $keyWord=$_POST['keyWord'];
   $start_date=$_POST['dateRange'][0];
   $end_date=$_POST['dateRange'][1];

@@ -1,18 +1,5 @@
 <?php
-  $servername = "localhost";
-  $username = "root";
-  $password = "Mwy197301242811";
-  $dbname = "cuixianshu"; // 要操作的数据库名
-  $outputData=array();
-  // 创建连接 
-  $conn= new mysqli($servername,$username,$password,$dbname); // 注意第四个参数
-  if($conn->connect_error){
-      die("连接失败，错误:" . $conn->connect_error);
-  }
-  // echo json_encode($_POST);
-  // exit;
-
-  //  $sql_update="UPDATE `tbl_request_funds` SET `id_project`=?,`amount`=?,`id_way_pay`=?,`account`=?,`use_for`=?,`id_relative`=?,`remark`=?,`id_applyer`=?,`time_applied`=CURRENT_TIME(),`id_approver`=null,`result_approved`=null,`time_approved`=null,`reason_reject`=null WHERE `id`=?";
+  include_once 'linkToCXS.php';
 
   if($_POST['conditions']==='PAID') {
     $conn->autocommit(false); //设置为非自动提交
@@ -33,7 +20,6 @@
     $stmt->free_result();
     $stmt->close();
 
-
     $sql_update_rqst_funds="UPDATE `tbl_request_funds` SET `is_paid`=1 WHERE `id`=?"; 
     $stmt=$conn->prepare($sql_update_rqst_funds);
     $stmt->bind_param('i',$id_rqst_funds);
@@ -51,19 +37,6 @@
 
     $conn->autocommit(true); //重新设置为自动提交  
   }
-/*
-amount: "700.00"
-conditions: "ReviewPaying"
-id_account: 1
-id_reviewer: 1
-id_payment: 8
-id_way_pay: 2
-numbers_bills: "32131321"
-opinion_reviewed: null
-remark: ""
-result_reviewed: "1"
-serial_paid: "3242424"
- */
   if($_POST['conditions']==='ReviewPaying') {
     $amount=$_POST['amount'];
     $id_account=$_POST['id_account'];

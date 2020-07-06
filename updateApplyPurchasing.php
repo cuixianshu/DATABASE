@@ -1,37 +1,6 @@
 <?php
-  $servername = "localhost";
-  $username = "root";
-  $password = "Mwy197301242811";
-  $dbname = "cuixianshu"; // 要操作的数据库名
-  $outputData=array();
-  // 创建连接 
-  $conn= new mysqli($servername,$username,$password,$dbname); // 注意第四个参数
-  if($conn->connect_error){
-      die("连接失败，错误:" . $conn->connect_error);
-  }
-  // echo json_encode($_POST);
-  // exit;
-  /*
-brand: "速度发生"
-detail: "方式歌月"
-id: ""
-id_applier: "1"
-id_project: "1"
-model: "发生收费"
-name: "发票开具"
-neededDate: "2020-03-05"
-project: "第一届射频会@2019/08/12"
-quantity: "1"
-remark: ""
-unit: "个"
+  include_once 'linkToCXS.php';
 
-
-
-id_applyedPurchasing: "1"
-idApprover: "1"
-result: "1"
-whyDisagree: ""
-   */
   if($_POST['conditions']==='Approved') {//审核
     $id_approver=$_POST['idApprover'];
     $result_approved=$_POST['result'];

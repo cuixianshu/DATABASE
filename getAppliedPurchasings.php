@@ -1,17 +1,7 @@
 <?php  
-  $servername = "localhost";
-  $username = "root";
-  $password = "Mwy197301242811";
-  $dbname = "cuixianshu"; // 要操作的数据库名
-    $outputData=array();
-  // 创建连接 
-  $conn= new mysqli($servername,$username,$password,$dbname); // 注意第四个参数
-  if($conn->connect_error){
-      die("连接失败，错误:" . $conn->connect_error);
-  }
-
-  // echo json_encode($_POST);
-  // exit;
+  include_once 'linkToCXS.php';
+  
+  $outputData=array();
 
   if($_POST['conditions']=='isNotFinishedWithState') {
     $sql="select *,(select count(id) from tbl_enquiry_price where id_applied_purchasing=tbl_apply_purchasing.id) as count_enquiries,(select is_commited_to_approve from tbl_enquiry_price where id_applied_purchasing=tbl_apply_purchasing.id LIMIT 1) as state_of_enquiries from `tbl_apply_purchasing` where `is_finished`=0 order by `date_applied`";

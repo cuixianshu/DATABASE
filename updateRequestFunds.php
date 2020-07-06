@@ -1,25 +1,5 @@
 <?php
-  $servername = "localhost";
-  $username = "root";
-  $password = "Mwy197301242811";
-  $dbname = "cuixianshu"; // 要操作的数据库名
-  $outputData=array();
-  // 创建连接 
-  $conn= new mysqli($servername,$username,$password,$dbname); // 注意第四个参数
-  if($conn->connect_error){
-      die("连接失败，错误:" . $conn->connect_error);
-  }
-  // echo json_encode($_POST);
-  // exit;
-
-  // $id_project=$_POST['id_project'];
-  // $amount=$_POST['amount'];
-  // $id_way_pay=$_POST['id_way_pay'];
-  // $account=$_POST['account'];
-  // $use_for=$_POST['use_for'];
-  // $remark=$_POST['remark'];
-  // $id_applyer=$_POST['id_applyer'];
-  
+  include_once 'linkToCXS.php';
 
   if($_POST['conditions']==='NewCreateRequestFunds') {
     $id_project=$_POST['id_project'];

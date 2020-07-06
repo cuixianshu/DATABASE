@@ -1,8 +1,9 @@
 <?php  
   include_once 'linkToCXS.php';
-
   $outputData=array();
-  $sql="select name_in_excel from tbl_dictionary_name_in_orders_excel where type_product_en='VECL'";
+    
+  $sql="select * from tbl_components";
+
   $result = $conn->query($sql);
 
   if($result){

@@ -1,27 +1,5 @@
 <?php
-  $servername = "localhost";
-  $username = "root";
-  $password = "Mwy197301242811";
-  $dbname = "cuixianshu"; // 要操作的数据库名
-  $outputData=array();
-  // 创建连接 
-  $conn= new mysqli($servername,$username,$password,$dbname); // 注意第四个参数
-  if($conn->connect_error){
-      die("连接失败，错误:" . $conn->connect_error);
-  }
-  // echo json_encode($_POST);
-  // exit;
-
-// amount: "056"
-// cause: "海天白云加大海"
-// conditions: "InsertNew"
-// currentUserId: "1"
-// id: ""
-// id_project: "1"
-// id_way_pay: "5"
-// remark: ""
-// way: "电汇"
-  
+  include_once 'linkToCXS.php';
 
   if($_POST['conditions']==='InsertNew') {
     $cause=$_POST['cause'];
@@ -67,6 +45,30 @@
       echo json_encode(false);
       // $conn->rollback();
     }  
+  }
+
+//还款
+  if($_POST['conditions']==='WithReturnMoney') {
+    $cause='归还借款';
+    $id_project=$_POST['id_project'];
+    $id_way_pay=$_POST['iWP'];
+    $id_payer=$_POST['id_debter'];
+    $amount=$_POST['actRTNAmount'];
+    $remark=$_POST['RTNrmk'];
+    $signature_code='{"id_request":"'.$_POST['id'].'","id_pay":"'.$_POST['p_id'].'"}';
+
+    $sql_insert="insert into `tbl_turnin_funds` (cause,  id_project,id_way_pay,id_payer,amount,time_paid,remark,nature,signature_code) values (?,?,?,?,?,CURRENT_TIME(),?,2,?)";
+    $stmt=$conn->prepare($sql_insert);
+    $stmt->bind_param('siiidss',$cause,$id_project,$id_way_pay,$id_payer,$amount,$remark,$signature_code);
+    $result_insert=$stmt->execute();
+    $stmt->free_result();
+    $stmt->close();     
+      //是否全部成功执行
+    if($result_insert) {
+      echo json_encode(true);
+    } else {
+      echo json_encode(false);
+    }
   }
 
   $conn->close();

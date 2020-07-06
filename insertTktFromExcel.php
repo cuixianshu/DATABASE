@@ -1,10 +1,6 @@
 <?php
   date_default_timezone_set('Asia/Shanghai');
-  $servername = "localhost";
-  $username = "root";
-  $password = "Mwy197301242811";
-  $dbname = "cuixianshu"; // 要操作的数据库名
-
+  include_once 'linkToCXS.php';
   //回传给前端的数据结构
   class Operate_result {
     public $countOfInserted;
@@ -18,11 +14,7 @@
       $this->rows_in_excel=count($arr);
     }
   }
-  // 创建连接
-  $conn= new mysqli($servername,$username,$password,$dbname); // 注意第四个参数
-  if($conn->connect_error){
-    die("连接失败,错误:" . $conn->connect_error);
-  }
+
 
   //拉取最近12个月的出票票号清单
   $sql="select number_ticket from tbl_tickets where date_issued > DATE_SUB(CURDATE(), INTERVAL 12 MONTH)";

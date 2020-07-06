@@ -1,43 +1,6 @@
 <?php
-  $servername = "localhost";
-  $username = "root";
-  $password = "Mwy197301242811";
-  $dbname = "cuixianshu"; // 要操作的数据库名
-  $outputData=array();
-  // 创建连接 
-  $conn= new mysqli($servername,$username,$password,$dbname); // 注意第四个参数
-  if($conn->connect_error){
-      die("连接失败，错误:" . $conn->connect_error);
-  }
-  /*
-  address: (...)
-born_date: (...)
-certificate_and_rank: (...)
-date_join: (...)
-date_leave: (...)
-education: (...)
-emergency_contacter: (...)
-from_ognztn: (...)
-gender: (...)
-graduate_from: (...)
-id: (...)
-id_department: (...)
-id_operator: (...)
-idcard: (...)
-is_own: (...)
-name: (...)
-name_department: (...)
-name_operator: (...)
-position: (...)
-remark: (...)
-tel_emergency: (...)
-tel_private: (...)
-tel_work: (...)
-time_create: (...)
-time_last_modify: (...)
-why_leave: (...)
-   */
-  // $id=$_POST['id'];
+  include_once 'linkToCXS.php';
+
   $name=$_POST['name'];
   $gender=$_POST['gender'];
   $born_date=$_POST['born_date'];

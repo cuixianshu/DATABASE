@@ -1,16 +1,5 @@
 <?php
-	$servername = "localhost";
-	$username = "root";
-	$password = "Mwy197301242811";
-	$dbname = "cuixianshu"; // 要操作的数据库名
-	$outputData=array();
-	// 创建连接 
-	$conn= new mysqli($servername,$username,$password,$dbname); // 注意第四个参数
-	if($conn->connect_error){
-	    die("连接失败，错误:" . $conn->connect_error);
-	}
-// echo json_encode($_POST);
-// exit;
+  include_once 'linkToCXS.php';
 	$conn->autocommit(false); //设置为非自动提交
 
   $sql_insert="insert into tbl_fill_invoice (num_of_invoice, amount, time_fill, id_filler,path_pict, other) values (?,?,CURRENT_TIME(),?,?,?)";

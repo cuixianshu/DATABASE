@@ -1,9 +1,16 @@
 <?php
   date_default_timezone_set('Asia/Shanghai');
-	$servername = "localhost";
-	$username = "root";
-	$password = "Mwy197301242811";
-	$dbname = "cuixianshu"; // 要操作的数据库名
+	// $servername = "localhost";
+	// $username = "root";
+	// $password = "Mwy197301242811";
+	// $dbname = "cuixianshu"; // 要操作的数据库名
+ //  // 创建连接
+ //  $conn= new mysqli($servername,$username,$password,$dbname); // 注意第四个参数
+ //  if($conn->connect_error){
+ //    die("连接失败,错误:" . $conn->connect_error);
+ //  }
+  include_once 'linkToCXS.php';
+
   $feild_name_in_neccessary=array();
   $array_of_title_in_orders=array();
   $array_of_title_in_excel=array();
@@ -75,11 +82,6 @@
       $this->alias='';
     }        
   }    
-	// 创建连接
-	$conn= new mysqli($servername,$username,$password,$dbname); // 注意第四个参数
-	if($conn->connect_error){
-	  die("连接失败,错误:" . $conn->connect_error);
-	}
 
   //把EXCEL表头转换为数据库表字段
   //拉取字典
@@ -689,12 +691,9 @@
       $mem=$_POST[$count_recorders]['mem']='';
     }
 
-    if($_POST[$count_recorders]['id_creater']!==''){
-	    $id_creater=$_POST[$count_recorders]['id_creater']; 
-    } else {
-      $id_creater=$_POST[$count_recorders]['id_creater']=1;//默认
-    }
-
+	  $id_creater=$_POST[$count_recorders]['id_creater']; 
+// echo $id_creater;
+// return;
     if($_POST[$count_recorders]['mileage']!==''){
 	    $mileage=$_POST[$count_recorders]['mileage']; 
     } else {
